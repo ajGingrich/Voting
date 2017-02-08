@@ -10,10 +10,7 @@ var app = express();
 require('dotenv').load();
 require('./app/config/passport')(passport);
 
-var MONGO_URI = 'mongodb://localhost:27017/clementinejs';
-
-//mongoose.connect(process.env.MONGO_URI);
-mongoose.connect(MONGO_URI);
+mongoose.connect(process.env.MONGO_URI);
 mongoose.Promise = global.Promise;
 
 app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
