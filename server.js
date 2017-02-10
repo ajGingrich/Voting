@@ -23,6 +23,7 @@ app.use(session({
 	saveUninitialized: true
 }));
 
+//middleware for passport
 app.use(passport.initialize());
 app.use(passport.session());
 

@@ -21,27 +21,28 @@ body {
 	font-size: 16px;
 	margin: 0;
 	padding: 0;
+    text-align: center;
 }
 
-header {
-	color: #00BCD4;
-	height: 56px;
-	margin: 0 0 14px 0;
-	text-align: center;
+.title {
+    background-color: orange;
+    margin-bottom: 20px;
 }
 
-p {
-	margin: 8px 0 0 0;
+/****** Nav Styling ******/
+
+nav {
+    color: #00BCD4;
+    height: 56px;
+    margin: 0 0 14px 0;
+    text-align: center;
 }
 
-.container p {
-	text-align: center;
-	padding: 0;
+nav p {
+	margin: 16px 0 5px 0;
+	display: inline;
 }
-
-/****** Header Styling ******/
-
-header p {
+nav {
 	margin: 16px 0 5px 0;
 }
 
@@ -54,17 +55,19 @@ header p {
 
 .menu:visited {
 	color: #727272;
+	text-decoration: none;
 }
 
 .menu:hover {
 	color: #FFA000;
+	text-decoration: none;
 }
 
 .menu:active {
 	color: #FF630D;
 }
 
-header a ~ p {
+nav a ~ p {
 	margin: 0;
 	padding: 0;
 	display: inline;
@@ -72,82 +75,6 @@ header a ~ p {
 }
 
 #display-name {
-	font-weight: 400;
-}
-
-/****** Login Styling ******/
-
-.login {
-	margin: 86px auto 0 auto;
-	text-align: center;
-}
-
-#login-btn {
-	width: 225px;
-	padding: 7px 5px;
-}
-
-.btn p {
-	margin: 8px 0 0 0;
-	padding: 0;
-}
-
-.btn > img {
-	float: left;
-	margin-left: 10px
-}
-
-/****** Logo Div Styling ******/
-
-img {
-	margin: 0 auto;
-	display: block;
-}
-
-.clementine-text { /* Styling for the Clementine.js text */
-	padding: 0;
-	margin: -25px 0 0 0;
-	font-weight: 500;
-	font-size: 60px;
-	color: #FFA000;
-}
-
-/****** Click Styling ******/
-
-.btn-container {	/* Styling for the div that contains the buttons */
-	margin: -10px auto 0 auto;
-	text-align: center;
-}
-
-.btn {	/* Styling for buttons */
-	margin: 0 8px;
-	color: white;
-	background-color: #00BCD4;
-	display: inline-block;
-	border: 0;
-	font-size: 14px;
-	border-radius: 3px;
-	padding: 10px 5px;
-	width: 100px;
-	font-weight: 500;
-}
-
-.btn:focus {	/* Remove outline when hovering over button */
-	outline: none;
-}
-
-.btn:active {	/* Scale the button down by 10% when clicking on button */
-	transform: scale(0.9, 0.9);
-	-webkit-transform: scale(0.9, 0.9);
-	-moz-transform: scale(0.9, 0.9);
-}
-
-.btn-delete {	/* Styling for delete button */
-	background-color: #ECEFF1;
-	color: #212121;
-}
-
-#click-nbr {
 	font-weight: 400;
 }
 

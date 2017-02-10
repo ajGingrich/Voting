@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <%- include head.ejs %>
+
+	<body>
+    <%- include nav.ejs %>
+    <div class="container">
+        <form id="poll" action="">
+            <h4>Enter a Poll Name</h4>
+            <div class="form-group">
+                <input type="text" class="form-control" name="pollName" placeholder="Name">
+            </div>
+            <h4>Enter the Options</h4>
+            <div class="form-group">
+                <input type="text" class="form-control" name="option1" placeholder="Option 1">
+            </div>
+            <div class="form-group">
+                <input type="text" class="form-control" name="option2" placeholder="Option 2">
+            </div>
+            <button type="button" name="addOptions" class="btn btn-default"><span>More Options</span></button>
+            <button type="submit" name="submitButton" class="btn btn-default btn-add"><span>Submit</span></button>
+        </form>
+    </div>
+
+
+		<script type="text/javascript" src="common/ajax-functions.js"></script>
+		<script type="text/javascript" src="controllers/clickController.client.js"></script>
+		<script type="text/javascript" src="controllers/userController.client.js"></script>
+	</body>
+
+</html>

@@ -1,0 +1,28 @@
+<% if (userID != null) { %>
+
+<nav>
+    <p class="menu">Welcome, <span id="display-name"></span>!</p>
+    <p></p>
+    <a class="menu" href="/">Home</a>
+    <p>|</p>
+    <a class="menu" href="/profile">Profile</a>
+    <p>|</p>
+    <a class="menu" href="/logout">Logout</a>
+    <p>|</p>
+    <a class="menu" href="/createPoll">Create Poll</a>
+</nav>
+
+<% } else { %>
+
+<nav>
+    <a class="menu" href="/">Home</a>
+    <p>|</p>
+    <a class="menu" href="/auth/github">Login</a>
+</nav>
+
+<% } %>
+
+<div class="container-fluid title">
+    <h1>Vote or Die!</h1>
+</div>
+
