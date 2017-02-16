@@ -2,10 +2,12 @@
 
 var path = process.cwd();
 var ClickHandler = require(path + '/app/controllers/clickHandler.server.js');
+var bodyParser = require('body-parser');
 
 module.exports = function (app, passport) {
 
 	var userID = null;
+	global.newPoll = null;
 
 	function isLoggedIn (req, res, next) {
 		if (req.isAuthenticated()) {
@@ -17,7 +19,8 @@ module.exports = function (app, passport) {
 		}
 		else {
             res.render(path + '/public/index.ejs', {
-                userID: userID
+                userID: userID,
+				newPoll: newPoll
             });
 		}
 	}
@@ -27,7 +30,8 @@ module.exports = function (app, passport) {
 	app.route('/')
         .get(isLoggedIn, function (req, res)  {
         res.render(path + '/public/index.ejs', {
-        	userID: userID
+        	userID: userID,
+			newPoll: newPoll
 		});
     });
 
@@ -49,6 +53,19 @@ module.exports = function (app, passport) {
             res.render(path + '/public/createPoll.ejs', {
             	userID: userID
 			});
+        });
+
+    app.route('/newpoll')
+        .get(isLoggedIn, function(req, res) {
+            //console.log(req.query);
+            global.newPoll = req.query;
+            res.render(path + '/public/index.ejs', {
+                newPoll: newPoll,
+                userID: userID
+            });
+        })
+        .post(isLoggedIn, bodyParser, function(req, res) {
+			console.log(req.body);
         });
 
     app.route('/api/:id')

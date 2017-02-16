@@ -24,10 +24,12 @@
   "author": "Blake Johnston",
   "license": "MIT",
   "dependencies": {
+    "body-parser": "^1.16.1",
     "dotenv": "^1.2.0",
     "ejs": "^2.5.5",
     "express": "^4.12.4",
     "express-session": "^1.11.3",
+    "jquery": "^3.1.1",
     "mongodb": "^2.2.22",
     "mongoose": "^4.1.0",
     "passport": "^0.3.0",
