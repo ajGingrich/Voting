@@ -1,7 +1,7 @@
 'use strict';
 
 var path = process.cwd();
-var ClickHandler = require(path + '/app/controllers/clickHandler.server.js');
+var PollHandler = require(path + '/app/controllers/pollHandler.server.js');
 var bodyParser = require('body-parser');
 
 module.exports = function (app, passport) {
@@ -19,19 +19,17 @@ module.exports = function (app, passport) {
 		}
 		else {
             res.render(path + '/public/index.ejs', {
-                userID: userID,
-				newPoll: newPoll
+                userID: userID
             });
 		}
 	}
 
-	var clickHandler = new ClickHandler();
+	var pollHandler = new PollHandler();
 
 	app.route('/')
         .get(isLoggedIn, function (req, res)  {
         res.render(path + '/public/index.ejs', {
-        	userID: userID,
-			newPoll: newPoll
+        	userID: userID
 		});
     });
 
@@ -39,7 +37,6 @@ module.exports = function (app, passport) {
 		.get(function (req, res) {
 			req.logout();
 			userID = null;
-			//console.log(userID);
 			res.redirect('/');
 		});
 
@@ -48,25 +45,10 @@ module.exports = function (app, passport) {
 			res.render(path + '/public/profile.ejs');
 		});
 
+	////get to display the page, post to send the form to the DB
     app.route('/createPoll')
-        .get(isLoggedIn, function (req, res) {
-            res.render(path + '/public/createPoll.ejs', {
-            	userID: userID
-			});
-        });
-
-    app.route('/newpoll')
-        .get(isLoggedIn, function(req, res) {
-            //console.log(req.query);
-            global.newPoll = req.query;
-            res.render(path + '/public/index.ejs', {
-                newPoll: newPoll,
-                userID: userID
-            });
-        })
-        .post(isLoggedIn, bodyParser, function(req, res) {
-			console.log(req.body);
-        });
+        .get(isLoggedIn, pollHandler.newPoll)
+		.post(isLoggedIn, pollHandler.addPoll);
 
     app.route('/api/:id')
 		.get(isLoggedIn, function (req, res) {
@@ -82,8 +64,5 @@ module.exports = function (app, passport) {
 			failureRedirect: '/'
 		}));
 
-	app.route('/api/:id/clicks')
-		.get(isLoggedIn, clickHandler.getClicks)
-		.post(isLoggedIn, clickHandler.addClick)
-		.delete(isLoggedIn, clickHandler.resetClicks);
+
 };
