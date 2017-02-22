@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
-    <%- include head.ejs %>
+    <%- include partials/head.ejs %>
 
 	<body>
-    <%- include nav.ejs %>
+    <%- include partials/nav.ejs %>
 
 		<div class="container">
-            <% if (newPoll != null) { %>
+            <% if (polls.length >0) { %>
 
-			<p> <%- newPoll.pollName %> </p>
+            	<% for (var i=0; i< polls.length; i++) { %>
+					<p> <a href="/displayPoll/<%- polls[i]._id %>"><%- polls[i].name %></a> </p>
+            	<% } %>
 
             <% } else { %>
 
@@ -19,9 +21,7 @@
 		</div>
 		
 		<script type="text/javascript" src="common/ajax-functions.js"></script>
-		<!--<script type="text/javascript" src="controllers/clickController.client.js"></script>
-		<script type="text/javascript" src="controllers/userController.client.js"></script>-->
-		<script type="text/javascript" src="controllers/pollController.client.js"></script>
+
 		<script type="text/javascript" src="controllers/userController.client.js"></script>
 	</body>
 

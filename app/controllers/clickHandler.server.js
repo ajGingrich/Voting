@@ -1,7 +1,6 @@
 'use strict';
 
 var Users = require('../models/users.js');
-var pollNumber = 1;
 
 function ClickHandler () {
 

@@ -84,7 +84,7 @@ nav a ~ p {
 	width: 350px;
 	height: 200px;
 	border-radius: 3px;
-	margin: 86px auto 0 auto;
+	margin: 5px auto 20px auto;
 	background-color: #EEE;
 	text-align: center;
 	color: #000;
@@ -95,11 +95,11 @@ nav a ~ p {
 }
 
 .github-profile p:nth-child(5) {
-	margin-bottom: 16px
+	margin-bottom: 5px
 }
 
 .github-profile p {
-	margin: 0 0 0 16px;
+	margin: 0 0 0 20px;
 	text-align: left;
 }
 
@@ -128,4 +128,8 @@ span {
 	color: #FFFFFF;
 	display: inline;
 	margin: 0;
+}
+
+.profilePoll {
+	display: inline;
 }

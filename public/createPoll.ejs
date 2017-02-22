@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 
-    <%- include head.ejs %>
+    <%- include partials/head.ejs %>
 
 	<body>
-    <%- include nav.ejs %>
+    <%- include partials/nav.ejs %>
     <div class="container">
         <form id="poll" action="/createPoll" method="post">
             <h4>Enter a Poll Name</h4>
@@ -12,15 +12,23 @@
                 <input type="text" class="form-control" name="pollName" placeholder="Name">
             </div>
             <h4>Enter the Options</h4>
-            <div class="form-group">
-                <input type="text" class="form-control" name="option1" placeholder="Option 1">
+            <div id="options">
+                <div class="form-group">
+                    <input type="text" class="form-control" name="option1" placeholder="Option 1">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control" name="option2" placeholder="Option 2">
+                </div>
             </div>
-            <div class="form-group">
-                <input type="text" class="form-control" name="option2" placeholder="Option 2">
+            <div>
+                <button type="submit" name="submitButton" class="btn btn-default"><span>Submit</span></button>
+                <button type="button" class="btn btn-default btn-add"><span>Add Option</span></button>
+                <button type="button" class="btn btn-default btn-delete"><span>Delete Option</span></button>
             </div>
-            <button type="button" name="addOptions" class="btn btn-default"><span>More Options</span></button>
-            <button type="submit" name="submitButton" class="btn btn-default"><span>Submit</span></button>
+
         </form>
+
+
     </div>
 
 

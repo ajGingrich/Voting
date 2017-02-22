@@ -2,13 +2,10 @@
 
 <html>
 
-	<head>
-		<title>Clementine.js - The elegant and lightweight full stack JavaScript boilerplate.</title>
-		
-		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
-	</head>
+	<%- include partials/head.ejs %>
 
 	<body>
+    <%- include partials/nav.ejs %>
 		<div class="container">
 			<div class="github-profile">
 				<img src="/public/img/gh-mark-32px.png" alt="github logo" />
@@ -16,11 +13,29 @@
 				<p><span>Username: </span><span id="profile-username" class="profile-value"></span></p>
 				<p><span>Display Name: </span><span id="display-name" class="profile-value"></span></p>
 				<p><span>Repositories: </span><span id="profile-repos" class="profile-value"></span></p>
-				<a class="menu" href="/">Home</a>
-				<p id="menu-divide">|</p>
-				<a class="menu" href="/logout">Logout</a>
 			</div>
 		</div>
+
+    <% if (polls.length >0) { %>
+
+	<h3> Your Polls </h3>
+
+    <% for (var i=0; i< polls.length; i++) { %>
+
+			<form action="/deletePoll/<%- polls[i]._id %>" class="profilePoll">
+				<p >
+					<a href="/displayPoll/<%- polls[i]._id %>"><%- polls[i].name %></a>
+					<button type="submit" class="btn btn-danger"><span>delete</span></button>
+				</p>
+			</form>
+
+    <% } %>
+
+    <% } else { %>
+
+		<p>You have no polls. Go add some!</p>
+
+    <% } %>
 		
 		<script type="text/javascript" src="common/ajax-functions.js"></script>
 		<script type="text/javascript" src="controllers/userController.client.js"></script>

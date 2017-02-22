@@ -2,25 +2,35 @@
 
 var path = process.cwd();
 var PollHandler = require(path + '/app/controllers/pollHandler.server.js');
-var bodyParser = require('body-parser');
+var Polls = require('../models/polls.js');
 
 module.exports = function (app, passport) {
 
 	var userID = null;
-	global.newPoll = null;
+    var polls = [];
 
 	function isLoggedIn (req, res, next) {
+
 		if (req.isAuthenticated()) {
 			if (userID == null) {
                 userID = "logged in";
-                //console.log(userID);
 			}
+            Polls.find({}, function(err, data) {
+                if (err) throw err;
+                polls = data;
+            });
 			return next();
 		}
 		else {
-            res.render(path + '/public/index.ejs', {
-                userID: userID
+            Polls.find({}, function(err, data) {
+                if (err) throw err;
+                polls = data;
+                res.render(path + '/public/index.ejs', {
+                    userID: userID,
+                    polls: polls
+                });
             });
+
 		}
 	}
 
@@ -29,7 +39,8 @@ module.exports = function (app, passport) {
 	app.route('/')
         .get(isLoggedIn, function (req, res)  {
         res.render(path + '/public/index.ejs', {
-        	userID: userID
+        	userID: userID,
+			polls: polls
 		});
     });
 
@@ -41,14 +52,31 @@ module.exports = function (app, passport) {
 		});
 
 	app.route('/profile')
-		.get(isLoggedIn, function (req, res) {
-			res.render(path + '/public/profile.ejs');
-		});
+		.get(pollHandler.findPolls);
 
 	////get to display the page, post to send the form to the DB
     app.route('/createPoll')
-        .get(isLoggedIn, pollHandler.newPoll)
-		.post(isLoggedIn, pollHandler.addPoll);
+        .get(pollHandler.newPoll)
+		.post(pollHandler.addPoll);
+
+    app.route('/displayPoll/:id')
+        .get(function (req, res) {
+        	//use the id to find the appropriate poll
+			var id = req.params.id;
+			console.log(userID);
+			var poll = {};
+			Polls.findById(id, function(err, data) {
+				if (err) throw err;
+				poll = data;
+                res.render(path + '/public/displayPoll.ejs', {
+                    userID: userID,
+                    poll: poll
+                });
+        	});
+        });
+
+    app.route('/deletePoll/:id')
+		.get(pollHandler.deletePoll);
 
     app.route('/api/:id')
 		.get(isLoggedIn, function (req, res) {
