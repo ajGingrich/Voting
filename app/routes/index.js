@@ -63,7 +63,7 @@ module.exports = function (app, passport) {
         .get(function (req, res) {
         	//use the id to find the appropriate poll
 			var id = req.params.id;
-			console.log(userID);
+			//console.log(userID);
 			var poll = {};
 			Polls.findById(id, function(err, data) {
 				if (err) throw err;
@@ -77,6 +77,9 @@ module.exports = function (app, passport) {
 
     app.route('/deletePoll/:id')
 		.get(pollHandler.deletePoll);
+
+    app.route('/vote/:pollId/:optionId')
+		.post(pollHandler.vote);
 
     app.route('/api/:id')
 		.get(isLoggedIn, function (req, res) {

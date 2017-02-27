@@ -78,6 +78,16 @@ nav a ~ p {
 	font-weight: 400;
 }
 
+
+#myChart {
+	float: right;
+}
+.votePoll {
+	float: left;
+}
+.pollTitle {
+	margin-bottom: 20px;
+}
 /****** Profile Styling ******/
 
 .github-profile {

@@ -6,12 +6,77 @@
 	<body>
     <%- include partials/nav.ejs %>
     <div class="container">
-        <p><%- poll.name %></p>
+        <h2 class="pollTitle"><%- poll.name %></h2>
+
+        <div class="votePoll">
+            <% for (var i=0; i< poll.options.length; i++) { %>
+
+            <form action="/vote/<%- poll._id %>/<%- poll.options[i]._id %>" method="post">
+                <p>
+                    <span><%- poll.options[i].name %></span>
+                    <button type="submit" class="btn btn-primary"><span>Vote</span></button>
+                </p>
+            </form>
+
+            <% } %>
+        </div>
+
+
+
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
+        <canvas id="myChart" width="300" height="300"></canvas>
+
+        <script>
+            ///alert error if
+            var ctx = document.getElementById("myChart");
+
+            ///decode to avoid XSS attacks
+            function htmlDecode(input){
+                var e = document.createElement('div');
+                e.innerHTML = input;
+                return e.childNodes.length === 0 ? "" : e.childNodes[0].nodeValue;
+            }
+            var poll = JSON.parse(htmlDecode("<%= JSON.stringify(poll) %>"));
+
+            //get the names, numbers of votes, add colors and background colors
+            var labels = [];
+            var data = [];
+            var colors = [];
+            var backgroundColors = [];
+
+            var colorList = ["#0000cc", "#ff0000", "#009900", "#ffff00", "#ff33cc", "#00ffff", "#ff751a",  "#00cc00" ];
+            var backgroundColorList = ["#6666ff", "#4dff4d", "#ff8080", "#ffff4d", "#80aaff", "#ff80b3", "#ffdd99", "#99ffeb"];
+
+            for (var j=0; j < poll.options.length; j++) {
+                labels.push(poll.options[j].name);
+                data.push(poll.options[j].count);
+                colors.push(colorList[j]);
+                backgroundColors.push(backgroundColorList[j]);
+            }
+
+            var myChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            data: data,
+                            backgroundColor: colors,
+                            hoverBackgroundColor: backgroundColors
+                        }]
+                },
+                options: {
+                    responsive: false
+                }
+
+            });
+        </script>
+
+
     </div>
 
 		<script type="text/javascript" src="common/ajax-functions.js"></script>
-        <!--<script type="text/javascript" src="controllers/clickController.client.js"></script>
-        <script type="text/javascript" src="controllers/userController.client.js"></script>-->
         <script type="text/javascript" src="../controllers/userController.client.js"></script>
 	</body>
 

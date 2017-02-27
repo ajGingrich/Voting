@@ -23,7 +23,7 @@
     <% for (var i=0; i< polls.length; i++) { %>
 
 			<form action="/deletePoll/<%- polls[i]._id %>" class="profilePoll">
-				<p >
+				<p>
 					<a href="/displayPoll/<%- polls[i]._id %>"><%- polls[i].name %></a>
 					<button type="submit" class="btn btn-danger"><span>delete</span></button>
 				</p>
