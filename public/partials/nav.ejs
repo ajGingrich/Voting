@@ -1,28 +1,35 @@
-<% if (userID != null) { %>
+<div class="container-fluid nav-container">
+    <h4>Andrew's Voting App</h4>
+    <% if (userID != null) { %>
 
-<nav>
-    <p class="menu">Welcome, <span id="display-name"></span>!</p>
-    <p></p>
-    <a class="menu" href="/">Home</a>
-    <p>|</p>
-    <a class="menu" href="/profile">Profile</a>
-    <p>|</p>
-    <a class="menu" href="/logout">Logout</a>
-    <p>|</p>
-    <a class="menu" href="/createPoll">Create Poll</a>
-</nav>
+    <nav>
+        <p class="menu">Welcome, <span id="display-name"></span>!</p>
+        <p></p>
+        <a class="menu" href="/">Home</a>
+        <p>|</p>
+        <a class="menu" href="/profile">Profile</a>
+        <p>|</p>
+        <a class="menu" href="/logout">Logout</a>
+        <p>|</p>
+        <a class="menu" href="/createPoll">Create Poll</a>
+    </nav>
 
-<% } else { %>
+    <% } else { %>
 
-<nav>
-    <a class="menu" href="/">Home</a>
-    <p>|</p>
-    <a class="menu" href="/auth/github">Login</a>
-</nav>
+    <nav>
+        <a class="menu" href="/">Home</a>
+        <p>|</p>
+        <a class="menu" href="/auth/github">Login</a>
+        <img src="/public/img/gh-mark-32px.png" alt="github logo" />
+    </nav>
 
-<% } %>
+    <% } %>
+</div>
 
-<div class="container-fluid title">
+
+
+<div class="well container-fluid">
+    <img class="img-vote img-responsive img-rounded" src = "http://www.womensforum.com/images/stories/c_her-vote-16/17217-4.jpg" />
     <h1>Vote or Die!</h1>
 </div>
 

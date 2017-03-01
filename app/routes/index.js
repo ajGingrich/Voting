@@ -12,16 +12,12 @@ module.exports = function (app, passport) {
 	function isLoggedIn (req, res, next) {
 
 		if (req.isAuthenticated()) {
-			if (userID == null) {
-                userID = "logged in";
-			}
-            Polls.find({}, function(err, data) {
-                if (err) throw err;
-                polls = data;
-            });
-			return next();
+           userID = "logged in";
+            return next();
 		}
 		else {
+			userID = null;
+			//display home page if not logged-in
             Polls.find({}, function(err, data) {
                 if (err) throw err;
                 polls = data;
@@ -30,18 +26,22 @@ module.exports = function (app, passport) {
                     polls: polls
                 });
             });
-
 		}
+
 	}
 
 	var pollHandler = new PollHandler();
 
 	app.route('/')
         .get(isLoggedIn, function (req, res)  {
-        res.render(path + '/public/index.ejs', {
-        	userID: userID,
-			polls: polls
-		});
+        Polls.find({}, function(err, data) {
+                if (err) throw err;
+                polls = data;
+                res.render(path + '/public/index.ejs', {
+                    userID: userID,
+                    polls: polls
+                });
+        });
     });
 
 	app.route('/logout')
@@ -52,31 +52,18 @@ module.exports = function (app, passport) {
 		});
 
 	app.route('/profile')
-		.get(pollHandler.findPolls);
+		.get(isLoggedIn, pollHandler.findPolls);
 
 	////get to display the page, post to send the form to the DB
     app.route('/createPoll')
-        .get(pollHandler.newPoll)
-		.post(pollHandler.addPoll);
+        .get(isLoggedIn, pollHandler.newPoll)
+		.post(isLoggedIn, pollHandler.addPoll);
 
-    app.route('/displayPoll/:id')
-        .get(function (req, res) {
-        	//use the id to find the appropriate poll
-			var id = req.params.id;
-			//console.log(userID);
-			var poll = {};
-			Polls.findById(id, function(err, data) {
-				if (err) throw err;
-				poll = data;
-                res.render(path + '/public/displayPoll.ejs', {
-                    userID: userID,
-                    poll: poll
-                });
-        	});
-        });
+    app.route('/displayPoll/:displayId')
+        .get(pollHandler.displayPolls);
 
     app.route('/deletePoll/:id')
-		.get(pollHandler.deletePoll);
+		.get(isLoggedIn, pollHandler.deletePoll);
 
     app.route('/vote/:pollId/:optionId')
 		.post(pollHandler.vote);

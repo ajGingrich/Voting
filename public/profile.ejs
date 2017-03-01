@@ -16,29 +16,39 @@
 			</div>
 		</div>
 
+	<h3> Your Polls </h3>
+	<div class="container displayPoll">
+	<div class="test">
     <% if (polls.length >0) { %>
 
-	<h3> Your Polls </h3>
 
-    <% for (var i=0; i< polls.length; i++) { %>
+        <% for (var i=0; i< polls.length; i++) { %>
 
-			<form action="/deletePoll/<%- polls[i]._id %>" class="profilePoll">
-				<p>
-					<a href="/displayPoll/<%- polls[i]._id %>"><%- polls[i].name %></a>
-					<button type="submit" class="btn btn-danger"><span>delete</span></button>
-				</p>
-			</form>
+		<form action="/deletePoll/<%- polls[i]._id %>">
+			<p>
+				<a href="/displayPoll/<%- polls[i]._id %>"><%- polls[i].name %></a>
+			</p>
+			<button type="submit" class="btn btn-danger"><span>delete</span></button>
+		</form>
 
-    <% } %>
 
-    <% } else { %>
+        <% } %>
+
+
+        <% } else { %>
 
 		<p>You have no polls. Go add some!</p>
 
-    <% } %>
+        <% } %>
+	</div>
+	</div>
+    <%- include partials/footer.ejs %>
+
+
+
 		
-		<script type="text/javascript" src="common/ajax-functions.js"></script>
-		<script type="text/javascript" src="controllers/userController.client.js"></script>
+		<script type="text/javascript" src="/common/ajax-functions.js"></script>
+		<script type="text/javascript" src="/controllers/userController.client.js"></script>
 	</body>
 
 </html>

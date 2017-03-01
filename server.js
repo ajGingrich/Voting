@@ -17,9 +17,14 @@ mongoose.Promise = global.Promise;
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use('/controllers', express.static(process.cwd() + '/app/controllers'));
-app.use('/public', express.static(process.cwd() + '/public'));
-app.use('/common', express.static(process.cwd() + '/app/common'));
+app.use('/controllers', express.static(__dirname + '/app/controllers'));
+app.use('/public', express.static(__dirname + '/public'));
+app.use('/common', express.static(__dirname + '/app/common'));
+
+//set view engine
+/*app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+app.use(express.static(__dirname + '/public'));*/
 
 
 app.use(session({

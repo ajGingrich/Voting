@@ -8,6 +8,8 @@ var http = require('http');
 function pollHandler () {
 
     this.newPoll = function (req, res) {
+
+        //console.log(path + '/public/createPoll.ejs');
         res.render(path + '/public/createPoll.ejs', {
             userID: "logged-in"
         });
@@ -48,7 +50,6 @@ function pollHandler () {
                     polls: polls
                 });
             });
-            //res.redirect('/');
         });
 
 	};
@@ -70,6 +71,8 @@ function pollHandler () {
 
     //delete poll
     this.deletePoll = function (req, res) {
+
+        //console.log(path + '/public/profile.ejs');
 
       ///delete the poll
       var id = req.params.id;
@@ -97,6 +100,7 @@ function pollHandler () {
         var pollId = req.params.pollId;
         var optionId = req.params.optionId;
         var userId;
+        var doubleVote = false;
 
         //get IP and make it userID if the user is not Logged in
         http.get({'host': 'api.ipify.org', 'port': 80, 'path': '/'}, function(resp) {
@@ -106,7 +110,6 @@ function pollHandler () {
                 }
                 else {
                     userId = ip.toString();
-                    console.log(userId);
                 }
                 Polls.find({
                     _id: pollId,
@@ -115,7 +118,22 @@ function pollHandler () {
                     if (err) throw err;
                     ///if has already voted, don't let them do it again
                     if (data.length != 0) {
-                        console.log("You have already voted. You can't do that you trickster");
+                        doubleVote = true;
+
+                        //find the poll and pass it to the page, but first check if user is logged-in or not
+                        if (req.user != undefined) {
+                            userId = req.user.github.id;
+                        }
+                        else {
+                            userId = null;
+                        }
+                        Polls.findById(pollId, function(req, pollUsed) {
+                            res.render(path + '/public/displayPoll.ejs', {
+                                userID: userId,
+                                poll: pollUsed,
+                                doubleVote: doubleVote
+                            });
+                        });
                     }
                     else {
                         //add to vote count
@@ -134,25 +152,50 @@ function pollHandler () {
                                 $push: {usersVoted: {"name": userId}}
                             }, function( err, data) {
                                 if (err) throw err;
+                                //find the poll and pass it to the page, but first check if user is logged-in or not
+                                if (req.user != undefined) {
+                                    userId = req.user.github.id;
+                                }
+                                else {
+                                    userId = null;
+                                }
+                                Polls.findById(pollId, function(req, pollUsed) {
+                                    res.render(path + '/public/displayPoll.ejs', {
+                                        userID: userId,
+                                        poll: pollUsed,
+                                        doubleVote: doubleVote
+                                    });
+                                });
                             });
                         });
                     }
-                    //find the poll and pass it to the page, but first check if user is logged-in or not
-                    if (req.user != undefined) {
-                        userId = req.user.github.id;
-                    }
-                    else {
-                        userId = null;
-                    }
-                    Polls.findById(pollId, function(req, pollUsed) {
-                        res.render(path + '/public/displayPoll.ejs', {
-                            userID: userId,
-                            poll: pollUsed
-                        });
-                    });
                 });
             });
          });
+    };
+
+    //displayPolls
+    this.displayPolls = function (req, res) {
+        //use the id to find the appropriate poll
+        var id = req.params.displayId;
+        var poll = {};
+        var userID = null;
+        var doubleVote = false;
+
+        //check if logged-in
+        if (req.isAuthenticated()) {
+            userID = "logged in";
+        }
+
+        Polls.findById(id, function(err, data) {
+            if (err) throw err;
+            poll = data;
+            res.render(path + '/public/displayPoll.ejs', {
+                userID: userID,
+                poll: poll,
+                doubleVote: doubleVote
+            });
+        });
     };
 
 }

@@ -34,8 +34,17 @@ body {
 nav {
     color: #00BCD4;
     height: 56px;
-    margin: 0 0 14px 0;
+    margin: 0 100px 0 0;
     text-align: center;
+	float: right;
+}
+div h4 {
+	float: left;
+	margin: 20px 0 0 20px;
+}
+
+.nav-container {
+	background-color: #91b7e0;
 }
 
 nav p {
@@ -71,36 +80,109 @@ nav a ~ p {
 	margin: 0;
 	padding: 0;
 	display: inline;
-	color: #ECEFF1;
+	color: #010a19;
 }
 
 #display-name {
 	font-weight: 400;
 }
 
-
-#myChart {
-	float: right;
+.img-vote {
+	float: left;
+	position: absolute;
+	height: 15%;
+	width: auto;
+	margin-top: -12px;
 }
+
+.displayPoll {
+	text-align: center;
+}
+
 .votePoll {
 	float: left;
+	margin: 20px 0 0 300px;
+}
+
+.votePoll button {
+	float:right;
+	margin: 0 0 15px 0;
+}
+.votePoll p {
+	float: left;
+	margin: 10px 20px 15px 0;
+}
+#myChart {
+	float: right;
+	margin: 0 300px 0 0;
 }
 .pollTitle {
-	margin-bottom: 20px;
+	margin-bottom: 10px;
+	margin-top: -10px;
 }
+.well {
+	background-color: #EEE;
+}
+.test form {
+	clear: both;
+}
+.test button {
+	float:right;
+	margin: 0 300px 15px 0;
+}
+.test p {
+	float: left;
+	margin: 10px 20px 15px 300px;
+}
+
+/****** Footer Styling ******/
+
+footer {
+	background-color: #91b7e0;
+}
+footer a {
+	color: black;
+}
+footer h5 {
+	float: left;
+	margin: 10px 0 0 20px;
+}
+footer p {
+	float: right;
+	margin-right: 20px;
+}
+footer p:nth-child(2) {
+	margin-top: 10px;
+}
+footer p:nth-child(3) {
+	clear: both;
+	margin-top: -5px;
+}
+
+
+.container h4 {
+	margin-bottom: 10px;
+}
+
 /****** Profile Styling ******/
 
 .github-profile {
 	width: 350px;
-	height: 200px;
+	height: 120px;
 	border-radius: 3px;
-	margin: 5px auto 20px auto;
+	margin: 0 auto 0 auto;
 	background-color: #EEE;
 	text-align: center;
 	color: #000;
 }
 
-.github-profile p:first-child {
+.github-profile img {
+	float: right;
+	margin-right: 20px;
+	padding-top: 16px;
+}
+
+.github-profile p:nth-child(2) {
 	padding-top: 16px;
 }
 
@@ -121,11 +203,6 @@ span {
 	font-weight: 500;
 }
 
-.github-profile > img {
-	padding-top: 16px;
-	margin-bottom: 16px;
-}
-
 .github-profile .menu:hover {
 	color: #FFA000;
 }
@@ -138,8 +215,4 @@ span {
 	color: #FFFFFF;
 	display: inline;
 	margin: 0;
-}
-
-.profilePoll {
-	display: inline;
 }

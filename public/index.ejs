@@ -5,7 +5,9 @@
 	<body>
     <%- include partials/nav.ejs %>
 
-		<div class="container">
+	<h4>The Polls</h4>
+
+		<div class="container well listPolls">
             <% if (polls.length >0) { %>
 
             	<% for (var i=0; i< polls.length; i++) { %>
@@ -19,6 +21,7 @@
             <% } %>
 
 		</div>
+    <%- include partials/footer.ejs %>
 		
 		<script type="text/javascript" src="common/ajax-functions.js"></script>
 
